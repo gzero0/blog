@@ -1,0 +1,85 @@
+<%include ../public/header.html%>
+<%include ../public/nav.html%>
+<%include ../public/sidebar.html%>
+<div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+		<form class="layui-form" action="/admin/article/add" method="post" enctype="multipart/form-data">
+  <div class="layui-form-item">
+    <label class="layui-form-label">文章标题</label>
+    <div class="layui-input-block">
+      <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">栏目归属</label>
+    <div class="layui-input-block">
+      <select name="cid" lay-verify="required">
+        <%for(var i=0;i<categories.length;i++){%>
+                                <%var category = categories[i]%>
+                                <option value="<%=category._id%>"><%=category.categoryName%></option>
+                                <%}%>
+      </select>
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label">文章简介</label>
+    <div class="layui-input-block">
+      <input type="text" name="jieshao" required  lay-verify="required" placeholder="请输入介绍" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  
+   <div class="layui-form-item">
+           <label class="layui-form-label">添加时间</label>
+            <div class="layui-input-block">
+                      <input type="text" name="addtime" class="layui-input" id="test1">
+             </div>
+   </div>
+  <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">文本域</label>
+    <div class="layui-input-block">
+      <textarea name="content" placeholder="请输入内容" class="layui-textarea"></textarea>
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
+           <label class="layui-form-label">缩略图</label>
+            <div class="layui-input-block">
+                      <input type="file" name="thumb" class="layui-input">
+             </div>
+   </div>
+   
+   
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+ 
+  </div>
+  </div>
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+  
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+    layer.msg(JSON.stringify(data.field));
+    return true;
+  });
+});
+//日历显示
+layui.use('laydate', function(){
+                var laydate = layui.laydate;
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#test1' //指定元素
+                });
+            });
+</script>
+	</body>
+</html>

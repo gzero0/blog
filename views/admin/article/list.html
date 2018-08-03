@@ -1,0 +1,101 @@
+ <%include ../public/header.html%>
+ <%include ../public/nav.html%>
+ <%include ../public/sidebar.html%>
+  
+ 
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+    	
+    	 <div class="layui-form">
+                <div class="layui-form-item">
+                        <label class="layui-form-label">栏目</label>
+                        <div class="layui-input-block">
+                          <select name="cid" lay-filter="cid">
+                              <option value="">请选择</option>
+                              <%for(var i=0;i<categories.length;i++){%>
+                                <option value="<%=categories[i]._id%>"  <% if(cid==categories[i]._id){ %>    selected="selected"  <%}%>    ><%=categories[i].categoryName%></option>
+                            <%}%>
+                          </select>
+                        </div>
+                      </div>
+        </div>
+    	<table class="layui-table">
+  <colgroup>
+    <col width="150">
+    <col width="200">
+    <col>
+  </colgroup>
+  <thead>
+    <tr>
+      <th>index</th>
+      <th>栏目归属</th>
+      <th>文章标题</th>
+      <th>缩略图</th>
+      <th>文章介绍</th>
+      <th>作者</th>
+      <th>发布时间</th>
+      <th>状态</th>
+      <th>操作</th>
+      
+    </tr> 
+    </thead>
+  <tbody>
+  	<%for(var i=0;i<articles.length;i++){%>
+  		<%var item=articles[i]%>
+  	<tr>
+  		<td><%=(i+1)%> <span class="<%=item.status?"":"show"%>">已隐藏</span></td>
+  		<td><%=categories[i].categoryName%></td>
+  		<td><%=item.title%></td>
+  		<td><img src="<%=item.thumb%>" alt="thumb暂无" style="height:50px;width:50px;"/></td>
+  		<td><%=item.jieshao%></td>
+  		<td><%=item.author%></td>
+  		<td><%=moment(item.addtime).format("YYYY/MM/DD")%></td>
+  		<td><%=item.status%></td>
+  		<td>
+  			<a href="/admin/article/edit?_id=<%=item._id%>">编辑</a>
+  			<a href="javascript:;" class="del-btn" _id="<%=item._id%>">删除</a>
+  			<a href="/admin/article/hidden?_id=<%=item._id%>"><%=item.status?"去隐藏":"已隐藏"%></a>
+  		</td>
+  	</tr>
+    <%}%>
+    
+    
+  </tbody>
+</table>
+    </div>
+  </div>
+  <script type="text/javascript">
+  	 $('.del-btn').click(function(){
+        var _id = $(this).attr('_id');
+        console.log(_id);
+        layui.use('layer', function(){
+        var layer = layui.layer;
+        layer.confirm('确定删除么？', {
+          btn: ['确定', '取消'] //可以无限个按钮
+        }, function(index, layero){
+            var url = '/admin/article/del?_id='+_id;
+            location.href = url;
+
+        }, function(index){
+          
+        });
+        
+      });              
+        
+      })
+  	 
+  	 
+  	 
+  	  layui.use(['form'], function(){
+        var form = layui.form;
+        form.on('select(cid)', function(data){
+            //console.log(data.value); //得到被选中的值
+            location.href = '/admin/article/list?_id='+data.value
+        });    
+        //各种基于事件的操作，下面会有进一步介绍
+      });
+  </script>
+  
+ <%include ../public/footer.html%>

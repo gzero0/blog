@@ -1,0 +1,12 @@
+ <%include ../public/header.html%>
+ <%include ../public/nav.html%>
+ <%include ../public/sidebar.html%>
+ <div class="layui-body">
+    <!-- 内容主体区域 -->
+   <form action="/admin/category/categoryEdit" method="post">
+        <input type="text" name="edittitle" id="" value="<%=cates.categoryName%>">
+        <input type="hidden" name="_id" value="<%=cates._id%>">
+        <input type="submit" value="保存">
+    </form>
+  </div>
+<%include ../public/footer.html%>

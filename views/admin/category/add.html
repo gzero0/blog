@@ -1,0 +1,36 @@
+ <%include ../public/header.html%>
+ <%include ../public/nav.html%>
+ <%include ../public/sidebar.html%>
+  
+ 
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;width:500px;">
+    	<form action="/admin/category/add" method="post">
+    <div class="layui-form-item">
+    <label class="layui-form-label">添加栏目</label>
+    <div class="layui-input-block">
+      <input type="text" name="categoryName" required  lay-verify="required" placeholder="请输入新增栏目名字" autocomplete="off" class="layui-input">
+    </div>	
+    </div>
+    
+     <div class="layui-form-item">
+    <label class="layui-form-label">栏目简介</label>
+    <div class="layui-input-block">
+      <input type="text" name="jianjie" required  lay-verify="required" placeholder="请输入简单栏目备注" autocomplete="off" class="layui-input">
+    </div>	
+    </div>
+    
+    <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+    		
+    	</form>
+    </div>
+  </div>
+  
+ <%include ../public/footer.html%>

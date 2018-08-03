@@ -1,0 +1,71 @@
+ <%include ../public/header.html%>
+ <%include ../public/nav.html%>
+ <%include ../public/sidebar.html%>
+  
+ 
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+    	<table class="layui-table">
+  <colgroup>
+    <col width="150">
+    <col width="200">
+    <col>
+  </colgroup>
+  <thead>
+    <tr>
+      <th>index</th>
+      <th>标题</th>
+      <th>简介</th>
+      <th>时间</th>
+      <th>状态</th>
+      <th>操作</th>
+    </tr> 
+    </thead>
+  <tbody>
+  	
+  	<%for(var i in cates){%>
+    <tr>
+      <td><%=Number(i)+1%></td>
+      <td><%=cates[i].categoryName%></td>
+      <td><%=cates[i].jianjie%></td>
+      <td><%=moment(cates[i].addtime).format('YYYY/MM/DD/ hh:mm:ss')%></td>
+
+      <td><%=cates[i].status%></td>
+      
+      <td>
+      	<a href="/admin/category/categoryEdit?_id=<%=cates[i]._id%>">编辑</a>
+		<a href="javescript:;" class="del-btn" _id="<%=cates[i]._id%>">删除</a>
+      </td>
+
+    </tr>
+    <%}%>
+    
+    
+    
+  </tbody>
+</table>
+    </div>
+  </div>
+  <script type="text/javascript">
+  	 $('.del-btn').click(function(){
+        var _id = $(this).attr('_id');
+        console.log(_id);
+        layui.use('layer', function(){
+        var layer = layui.layer;
+        layer.confirm('确定删除么？', {
+          btn: ['确定', '取消'] //可以无限个按钮
+        }, function(index, layero){
+            var url = '/admin/category/del?_id='+_id;
+            location.href = url;
+
+        }, function(index){
+          
+        });
+        
+      });              
+        
+      })
+  </script>
+ <%include ../public/footer.html%>
